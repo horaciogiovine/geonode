@@ -11,9 +11,9 @@ router.get('/api/primary/:id', function(req, res) {
 
 /* Search query lookup route */
 router.get('/api/geoname/:country/:admin1/:name', function(req, res) {
-  
+
   var Sequelize = require("sequelize");
-  
+
   models.Geoname.findAll({
     where: Sequelize.and(
       {country: req.params.country},
@@ -23,8 +23,25 @@ router.get('/api/geoname/:country/:admin1/:name', function(req, res) {
   }).success(function(geonames) {
     res.json(geonames);
   });
-  
+
 });
+
+/* Search query lookup route */
+router.get('/api/geoname/:country/:admin1/', function(req, res) {
+
+  var Sequelize = require("sequelize");
+
+  models.Geoname.findAll({
+    where: Sequelize.and(
+      {country: req.params.country},
+      {admin1: req.params.admin1}
+    )
+  }).success(function(geonames) {
+    res.json(geonames);
+  });
+
+});
+
 
 /* GET home page. */
 router.get('/', function(req, res) {
